@@ -1,0 +1,156 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Buttons/MenuButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Buttons/NewGameButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Screens/titleGame.png" type="Texture" id=3]
+[ext_resource path="res://Screens/Titlescreen.gd" type="Script" id=4]
+[ext_resource path="res://Animations/FadeIn.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fonts/VT323-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Screens/intro.png" type="Texture" id=7]
+[ext_resource path="res://Screens/button.png" type="Texture" id=8]
+[ext_resource path="res://Fonts/rainyhearts.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Screens/Button.gd" type="Script" id=10]
+[ext_resource path="res://Screens/Label.gd" type="Script" id=11]
+[ext_resource path="res://Screens/BPJ.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Sounds/BGM.ogg" type="AudioStream" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 14
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 14
+font_data = ExtResource( 9 )
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.241913
+margin_right = -0.241913
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IntroBG" type="Sprite" parent="."]
+position = Vector2( 144, 128 )
+texture = ExtResource( 7 )
+
+[node name="ButtonIntro" type="Sprite" parent="."]
+position = Vector2( 144, 128 )
+texture = ExtResource( 8 )
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 124.0
+margin_top = 107.0
+margin_right = 228.0
+margin_bottom = 181.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="Menu"]
+visible = false
+margin_right = 280.0
+margin_bottom = 70.0
+texture = ExtResource( 3 )
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_right = 104.0
+margin_bottom = 74.0
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 104.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NewGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
+margin_right = 104.0
+
+[node name="NewButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 1 )]
+visible = false
+margin_top = 24.0
+margin_right = 130.0
+margin_bottom = 44.0
+
+[node name="Label" type="Label" parent="Menu/CenterRow/Buttons"]
+margin_top = 24.0
+margin_right = 104.0
+margin_bottom = 38.0
+script = ExtResource( 11 )
+
+[node name="CreditsButton" type="Button" parent="Menu/CenterRow/Buttons"]
+margin_top = 42.0
+margin_right = 104.0
+margin_bottom = 62.0
+flat = true
+script = ExtResource( 10 )
+scene_to_load = "res://Screens/Credits.tscn"
+music_to_play = "res://Sounds/Menu_select_1"
+
+[node name="Label" type="Label" parent="Menu/CenterRow/Buttons/CreditsButton"]
+margin_left = 20.3197
+margin_top = 0.48378
+margin_right = 78.3197
+margin_bottom = 15.4838
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0.552941, 0.211765, 0.105882, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 3
+text = "CREDITS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Menu"]
+visible = false
+margin_top = 66.0
+margin_right = 130.0
+margin_bottom = 95.0
+custom_fonts/font = SubResource( 2 )
+text = "Use arrows or wasd to move
+Don't let them find you"
+
+[node name="InstructionMove" type="Label" parent="."]
+margin_left = 35.0
+margin_top = 195.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 3 )
+text = "Use arrow to move"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InstructionJump" type="Label" parent="."]
+margin_left = 35.0
+margin_top = 227.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 4 )
+text = "Don't use spacebar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FadeIn" parent="." instance=ExtResource( 5 )]
+margin_left = -0.836914
+margin_top = 0.250015
+margin_right = -0.836914
+margin_bottom = 0.25
+
+[node name="BPJ" parent="." instance=ExtResource( 12 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[connection signal="fade_in_finished" from="FadeIn" to="." method="_on_FadeIn_fade_in_finished"]
